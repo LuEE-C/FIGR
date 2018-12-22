@@ -1,6 +1,9 @@
 # FIGR
 Few-shot Image Generation with Reptile
 
+![alt text](https://github.com/OctThe16th/FIGR/blob/master/images/MNIST_50k_red.png)
+
+
 # Installation
 
     $ git clone https://github.com/OctThe16th/FIGR.git
