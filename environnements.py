@@ -1,4 +1,3 @@
-import glob
 import os
 from PIL import Image
 
@@ -10,13 +9,12 @@ import torchvision.transforms as transforms
 import random
 import pickle as pkl
 import numpy as np
-from itertools import combinations
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class MnistMetaEnv:
-    def __init__(self, root=None, height=28, length=28):
+    def __init__(self, height=28, length=28):
         self.channels = 1
         self.height = height
         self.length = length
@@ -55,7 +53,7 @@ class MnistMetaEnv:
 
 
 class OmniglotMetaEnv:
-    def __init__(self, root=None, height=32, length=32):
+    def __init__(self, height=32, length=32):
         self.channels = 1
         self.height = height
         self.length = length
@@ -94,21 +92,27 @@ class OmniglotMetaEnv:
 
 
 class FIGR8MetaEnv(Dataset):
-    def __init__(self, root='./data', height=32, length=32):
+    def __init__(self, height=32, length=32):
         self.channels = 1
         self.height = height
         self.length = length
         self.resize = transforms.Resize((height, length))
         self.to_tensor = transforms.ToTensor()
-        self.root = root
 
         self.tasks = self.get_tasks()
         self.all_tasks = set(self.tasks)
         self.split_validation_and_training_task()
 
     def get_tasks(self):
+        if os.path.exists('./data/FIGR-8') is False:
+            if os.path.exists('./data') is False:
+                os.mkdir('./data')
+            import git
+            git.Repo.clone_from('https://github.com/marcdemers/FIGR-8', './data/FIGR-8')
+
+
         tasks = dict()
-        path = os.path.join(self.root, 'FIGR8/Data')
+        path = os.path.join('./data/FIGR8/Data')
         if os.path.exists(path) is False:
             pass
             # Git clone dataset

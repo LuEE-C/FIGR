@@ -1,0 +1,5 @@
+tensorboardx>=1.4
+torch>=0.4
+docopt>=0.6
+tensorboard>=1.8
+

@@ -8,9 +8,8 @@ options:
     --inner_epochs=ie           Amount of meta epochs in the inner loop [default: 10]
     --height=h                  Height of image [default: 32]
     --length=l                  Length of image [default: 32]
-    --strategy=s                Strategy name [default: Mnist]
+    --dataset=ds                Dataset name (Mnist, Omniglot, FIGR8) [default: Mnist]
     --neural_network=nn         Either ResNet or DCGAN [default: DCGAN]
-    --root=r                    Root of data folder [default: data/]
     -h, --help                  Show this help message and exit
 """
 from docopt import docopt
@@ -23,7 +22,6 @@ import torch.autograd as autograd
 from tensorboardX import SummaryWriter
 import numpy as np
 import os
-import pickle as pkl
 from environnements import MnistMetaEnv, OmniglotMetaEnv, FIGR8MetaEnv
 from model import ResNetDiscriminator, ResNetGenerator, DCGANGenerator, DCGANDiscriminator
 
@@ -66,7 +64,7 @@ class FIGR:
         self.id_string = self.get_id_string()
         self.z_shape = 100
         self.writer = SummaryWriter('Runs/' + self.id_string)
-        self.env = eval(self.strategy + 'MetaEnv(root=self.root, height=self.height, length=self.length)')
+        self.env = eval(self.dataset + 'MetaEnv(height=self.height, length=self.length)')
         self.initialize_gan()
         self.load_checkpoint()
 
@@ -158,7 +156,9 @@ class FIGR:
         while self.eps <= 1000000:
             self.reset_meta_model()
             self.meta_training_loop()
-            if self.eps % 10000 == 0:
+
+            # Validation run every 10000 training loop
+            if self.eps % 500 == 0:
                 self.reset_meta_model()
                 self.validation_run()
                 self.checkpoint_model()
@@ -172,22 +172,21 @@ class FIGR:
         self.inner_epochs = int(args['--inner_epochs'])
         self.height = int(args['--height'])
         self.length = int(args['--length'])
-        self.strategy = args['--strategy']
+        self.dataset = args['--dataset']
         self.neural_network = args['--neural_network']
-        self.root = args['--root']
 
     def load_checkpoint(self):
         if os.path.isfile('Runs/' + self.id_string + '/checkpoint'):
             checkpoint = torch.load('Runs/' + self.id_string + '/checkpoint')
             self.d.load_state_dict(checkpoint['discriminator'])
             self.g.load_state_dict(checkpoint['generator'])
-            self.eps = checkpoint['episodes']
+            self.eps = checkpoint['episode']
         else:
             self.eps = 0
 
     def get_id_string(self):
         return '{}_{}_olr{}_ilr{}_bsize{}_ie{}_h{}_l{}'.format(self.neural_network,
-                                                                         self.strategy,
+                                                                         self.dataset,
                                                                          str(self.outer_learning_rate),
                                                                          str(self.inner_learning_rate),
                                                                          str(self.batch_size),
