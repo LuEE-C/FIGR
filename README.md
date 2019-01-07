@@ -11,7 +11,9 @@ The gist of this project is that the Reptile meta-learning algorithm is compatib
 ![alt text](https://github.com/OctThe16th/FIGR/blob/master/images/figr.png)
 
 # FIGR-8
-The project also includes a new dataset for few-shot image generation, FIGR-8. A dataset containing 18,409 classes of at least 8 images each for a totla of 1,548,944 images. It can be found here https://github.com/marcdemers/FIGR-8 and is downloaded automatically when running this code with the option --dataset FIGR-8.
+The project also includes a new dataset for few-shot image generation, FIGR-8. A dataset containing 18,409 classes of at least 8 images each for a totla of 1,548,944 images. It can be found here https://github.com/marcdemers/FIGR-8 and is downloaded automatically when running this code like so:
+
+    $ python train.py --dataset FIGR-8
 
 # Installation
 
