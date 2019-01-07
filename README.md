@@ -15,6 +15,8 @@ The project also includes a new dataset for few-shot image generation, FIGR-8. A
 
     $ python train.py --dataset FIGR-8
 
+Git-lfs is required to properly pull the data.
+
 # Installation
 
     $ git clone https://github.com/OctThe16th/FIGR.git
