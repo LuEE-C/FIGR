@@ -107,20 +107,24 @@ class FIGR8MetaEnv(Dataset):
         if os.path.exists('./data/FIGR-8') is False:
             if os.path.exists('./data') is False:
                 os.mkdir('./data')
-            import git
-            git.Repo.clone_from('https://github.com/marcdemers/FIGR-8', './data/FIGR-8')
+            os.mkdir('./data/FIGR-8')
+            from google_drive_downloader import GoogleDriveDownloader as gdd
+            gdd.download_file_from_google_drive(file_id='10dF30Qqi9RdIUmET9fBhyeRN0hJmq7pO',
+                                                dest_path='./data/FIGR-8/Data.zip')
+            import zipfile
+            with zipfile.ZipFile('./data/FIGR-8/Data.zip', 'r') as zip_f:
+                zip_f.extractall('./data/FIGR-8/')
+            os.remove('./data/FIGR-8/Data.zip')
 
 
         tasks = dict()
-        path = os.path.join('./data/FIGR8/Data')
-        if os.path.exists(path) is False:
-            pass
-            # Git clone dataset
+        path = './data/FIGR-8/Data'
         for task in os.listdir(path):
             tasks[task] = []
             task_path = os.path.join(path, task)
             for imgs in os.listdir(task_path):
                 img = Image.open(os.path.join(task_path, imgs))
+                print(img)
                 tasks[task].append(np.array(self.to_tensor(self.resize(img)))[3:4])
             tasks[task] = np.array(tasks[task])
         return tasks
