@@ -124,7 +124,7 @@ class FIGR8MetaEnv(Dataset):
             task_path = os.path.join(path, task)
             for imgs in os.listdir(task_path):
                 img = Image.open(os.path.join(task_path, imgs))
-                tasks[task].append(np.array(self.to_tensor(self.resize(img)))[3:4])
+                tasks[task].append(np.array(self.to_tensor(self.resize(img))))
             tasks[task] = np.array(tasks[task])
         return tasks
 

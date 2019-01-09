@@ -8,7 +8,7 @@ options:
     --inner_epochs=ie           Amount of meta epochs in the inner loop [default: 10]
     --height=h                  Height of image [default: 32]
     --length=l                  Length of image [default: 32]
-    --dataset=ds                Dataset name (Mnist, Omniglot, FIGR-8) [default: Mnist]
+    --dataset=ds                Dataset name (Mnist, Omniglot, FIGR8) [default: FIGR8]
     --neural_network=nn         Either ResNet or DCGAN [default: DCGAN]
     -h, --help                  Show this help message and exit
 """
