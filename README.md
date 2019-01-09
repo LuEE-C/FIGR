@@ -30,7 +30,6 @@ For the different command line options, simply write:
     $ python train.py --help
     
 
-Acknowledgement
 
 If you use this code for your own projects, please consider citing the following paper:
 
