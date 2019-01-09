@@ -31,19 +31,19 @@ For the different command line options, simply write:
     
 
 
-If you use this code for your own projects, please consider citing the following paper:
+If you use this code for your own projects, please consider __citing the following paper__:
 
-@article{FIGR2019,
-author = {Louis Clouâtre and Marc Demers},
-title = {FIGR: Few-shot Image Generation with Reptile},
-journal = {CoRR},
-volume = {abs/1901.02199},
-year = 2019,
-ee = {http://arxiv.org/abs/1901.02199},
-month = jan,
-archiveprefix = “arXiv”,
-number = “1901.02199v1”,
-eprint = “1901.02199v1”,
-primaryclass = “cs.CV”,
-nonrefereed = “true”
-}
+	@article{FIGR2019,
+	author = {Louis Clouâtre and Marc Demers},
+	title = {FIGR: Few-shot Image Generation with Reptile},
+	journal = {CoRR},
+	volume = {abs/1901.02199},
+	year = 2019,
+	ee = {http://arxiv.org/abs/1901.02199},
+	month = jan,
+	archiveprefix = “arXiv”,
+	number = “1901.02199v1”,
+	eprint = “1901.02199v1”,
+	primaryclass = “cs.CV”,
+	nonrefereed = “true”
+	}
