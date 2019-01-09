@@ -28,3 +28,5 @@ The project also includes a new dataset for few-shot image generation, FIGR-8. A
 For the different command line options, simply write:
 
     $ python train.py --help
+
+Preprint can be found here: https://arxiv.org/abs/1901.02199
