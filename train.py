@@ -96,7 +96,7 @@ class FIGR:
     def validation_run(self):
         data, task = self.env.sample_validation_task(self.batch_size)
         training_images = data.cpu().numpy()
-        training_images = np.expand_dims(np.concatenate([training_images[i] for i in range(self.batch_size)], axis=-1), 0)
+        training_images = np.concatenate([training_images[i] for i in range(self.batch_size)], axis=-1)
         data = normalize_data(data)
         real_batch = data.to(device)
 
@@ -112,7 +112,7 @@ class FIGR:
         with torch.no_grad():
             img = self.meta_g(torch.tensor(np.random.normal(size=(self.batch_size * 3, self.z_shape)), dtype=torch.float, device=device))
         img = img.detach().cpu().numpy()
-        img = np.expand_dims(np.concatenate([np.concatenate([img[i * 3 + j] for j in range(3)], axis=-2) for i in range(self.batch_size)], axis=-1), 0)
+        img = np.concatenate([np.concatenate([img[i * 3 + j] for j in range(3)], axis=-2) for i in range(self.batch_size)], axis=-1)
         img = unnormalize_data(img)
         img = np.concatenate([training_images, img], axis=-2)
         self.writer.add_image('Validation_generated', img, self.eps)
